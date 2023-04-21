@@ -1,0 +1,23 @@
+{
+  "name": "track-card-manager-server",
+  "version": "1.0.0",
+  "description": "A simple server to load and save tracks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joost de Bruijn <joost@aqualabs.nl>",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.5.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-cors": "0.0.16",
+    "koa-router": "^12.0.0",
+    "sequelize": "^6.31.0",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "eslint": "^8.38.0",
+    "eslint-config-loopback": "^13.1.0"
+  }
+}

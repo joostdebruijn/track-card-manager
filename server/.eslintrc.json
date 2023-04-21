@@ -1,0 +1,35 @@
+{
+    "extends": "loopback",
+    "parserOptions": {
+      "ecmaVersion": 2017
+    },
+    "rules": {
+      "max-len": ["error", {
+        "code": 120,
+        "tabWidth": 2,
+        "ignoreComments": true,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreRegExpLiterals": true
+      }],
+      "space-before-function-paren": ["error", {
+        "anonymous": "never",
+        "named": "never",
+        "asyncArrow": "always"
+      }],
+      "comma-dangle": ["error", "never"],
+      "arrow-parens": ["error", "always"],
+      "prefer-arrow-callback": ["error"],
+      "no-var": ["error"],
+      "no-else-return": ["error"],
+      "no-unused-vars": ["warn"],
+      "no-console": ["warn"],
+      "handle-callback-err": ["error"],
+      "eqeqeq": ["error"],
+      "callback-return": ["error", ["callback", "cb", "next", "done", "eachCb", "taskCb", "subTaskCb", "mapCb"]]
+    },
+    "env": {
+      "node": true
+    }
+  }

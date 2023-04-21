@@ -1,0 +1,453 @@
+/**
+  ========================================
+  ========== Aqua Track Manager ========== 
+  ========================================
+  = Creation of track cards. Reinvented. =
+  =         (c) AquaLabs V.O.F.          =
+  ========================================
+*/
+
+/* Default properties order:
+ * - Display property
+ * - Flex container properties
+ * - Flex item properties
+ * - Size properties
+ * - Color properties
+ * - Border properties
+ * - Other properties
+ */
+
+/**
+  ---------- Section ----------
+  -   Variables for application   -
+  -----------------------------
+ */
+
+body {
+  /* Colors for the track cards */
+  --grass-color: #4CAF50;
+  --interval-line-color: #cfe8f3;
+  --lane-number-color: black;
+  --lane-number-font-family: "Trebuchet MS", Helvetica, sans-serif;
+  --lane-number-font-size: 20px;
+  --water-color: #2196F3;
+  --water-color-accent: #64B5F6;
+  --wood-color: #7d5f2c;
+  --arrow-line: white;
+}
+
+body[print] {
+  --grass-color: white;
+  --water-color: white;
+  --arrow-line: black;
+}
+
+/**
+  ---------- Section ----------
+  - Layout of the track card  -
+  -----------------------------
+ */
+
+/**
+  - Body element -
+  Main container for the track cards.
+ */
+body {
+  /* Display property */
+  display: flex;
+  /* Flex container properties */
+  justify-content: center;
+  flex-direction: column;
+  /* Color properties */
+  background: var(--grass-color);
+  /* Other properties */
+  margin: 0px;
+  padding: 0px;
+  font-family: var(--lane-number-font-family);
+}
+
+/**
+  - Labels container element -
+  Container for the labels.
+ */
+.labels-container {
+  display: flex;
+  flex: 0 0 30px;
+  padding-left: 25px;
+  padding-right: 125px;
+}
+
+/**
+  - Labels interval element -
+  Label for interval.
+ */
+ .labels-container .interval {
+  border-right: none;
+  justify-content: initial;
+  align-items: flex-end;
+ }
+ .labels-container span {
+  width: 75px;
+  transform: rotate(315deg) translate(10px, -30px);
+ }
+
+/**
+  - Map element -
+  Container for the lane cards items.
+ */
+.map {
+  /* Display property */
+  display: flex;
+  /* Size properties */
+  width: 100%;
+  height: 400px;
+  /* Color properties */
+  background: var(--water-color);
+}
+
+/**
+  - Start and lanes container element -
+  Container for the starting area and the lanes.
+ */
+.start-container,
+.lanes-container {
+  /* Display property */
+  display: flex;
+  /* Flex container properties */
+  flex-direction: column;
+}
+.start-container > *:nth-child(odd),
+.lanes-container > *:nth-child(odd) {
+  /* Color properties */
+  background: var(--water-color-accent);
+}
+
+.start-container > :last-child,
+.lanes-container > :last-child {
+  /* Color properties */
+  background: linear-gradient(rgba(255, 255, 255, 0), var(--grass-color));
+}
+.start-container {
+  width: 25px;
+}
+.start-container .lane {
+  border: none;
+}
+.lanes-container {
+  /* Flex item properties */
+  flex: 1;
+}
+/**
+  - Side lane element -
+  Padding for first and last lane.
+ */
+.side-lane {
+  /* Flex container properties */
+  display: flex;
+  /* Flex item properties */
+  height: 15px;
+}
+.side-lane:first-child {
+  /* Color properties */
+  background: linear-gradient(var(--grass-color), var(--water-color));
+}
+.start-container .side-lane:first-child,
+.lanes-container .side-lane:first-child {
+  /* Color properties */
+  background: linear-gradient(var(--grass-color), var(--water-color-accent));
+}
+.side-lane:last-child {
+  /* Color properties */
+  background: linear-gradient(var(--water-color), var(--grass-color));
+}
+.start-container .side-lane:last-child,
+.lanes-container .side-lane:last-child {
+  /* Color properties */
+  background: linear-gradient(var(--water-color-accent), var(--grass-color));
+}
+.lanes-container .side-lane:last-child {
+  /* Border properties */
+  border-top: 2px #fafd3e dashed;
+}
+
+/**
+  - Lane element -
+  Padding for first and last lane.
+ */
+.lane {
+  /* Flex container properties */
+  display: flex;
+  /* Flex item properties */
+  flex: 3;
+  height: 42.5;
+  /* Border properties */
+  border-top: 2px #fafd3e dashed;
+}
+.start-container > .lane {
+  align-items: center;
+}
+.lanes-container > .lane > :last-child {
+  /* Color properties */
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--water-color));
+}
+.lanes-container > .lane[lane-type="FORBIDDEN"] {
+  background-image: repeating-linear-gradient(-45deg,
+    transparent,
+    transparent 20px,
+    #F44336 20px,
+    #F44336 23px);
+}
+.lanes-container > .lane[lane-type="WARMINGUP"] {
+  background-image: repeating-linear-gradient(-45deg,
+    transparent,
+    transparent 20px,
+    #795548 20px,
+    #795548 23px);
+}
+.lanes-container > .lane[lane-type="AVOID"] {
+  background-image: repeating-linear-gradient(-45deg,
+    transparent,
+    transparent 20px,
+    yellow 20px,
+    yellow 23px);
+}
+
+.lanes-container > .lane[lane-type="FORBIDDEN"] > .interval:first-child {
+  background-image:url("data:image/svg+xml;utf8, \
+  <svg xmlns='http://www.w3.org/2000/svg' version='1.1' \
+       height='50px' width='120px'> \
+    <text x='0' y='40px' fill='black' style='font-size:12px; font-weight: bold; font-family:Helvetica'>VERBODEN BAAN</text> \
+  </svg>");
+  background-repeat: no-repeat;
+}
+
+.lanes-container > .lane[lane-type="WARMINGUP"] > .interval:first-child {
+  background-image:url("data:image/svg+xml;utf8, \
+  <svg xmlns='http://www.w3.org/2000/svg' version='1.1' \
+       height='50px' width='120px'> \
+    <text x='0' y='40px' fill='black' style='font-size:12px; font-weight: bold; font-family:Helvetica'>WARMING-UP BAAN</text> \
+  </svg>");
+  background-repeat: no-repeat;
+}
+
+.lanes-container > .lane[lane-type="RACE"] > .interval:first-child {
+  background-image:url("data:image/svg+xml;utf8, \
+  <svg xmlns='http://www.w3.org/2000/svg' version='1.1' \
+       height='50px' width='120px'> \
+    <text x='0' y='40px' fill='black' style='font-size:12px; font-weight: bold; font-family:Helvetica'>WEDSTRIJD BAAN</text> \
+  </svg>");
+  background-repeat: no-repeat;
+}
+.lanes-container > .lane[lane-type="AVOID"] > .interval:first-child {
+  background-image:url("data:image/svg+xml;utf8, \
+  <svg xmlns='http://www.w3.org/2000/svg' version='1.1' \
+       height='50px' width='120px'> \
+    <text x='0' y='40px' fill='black' style='font-size:12px; font-weight: bold; font-family:Helvetica'>UITWIJK BAAN</text> \
+  </svg>");
+  background-repeat: no-repeat;
+}
+
+
+  
+/**
+  - Interval element -
+  Blocks of intervals in the track
+ */
+.interval {
+  /* Flex container properties */
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  /* Border properties */
+  border-right: 2px var(--interval-line-color) solid;
+}
+.interval-section-left,
+.interval-section-center,
+.interval-section-right {
+  flex: 1;
+}
+.interval-section-left,
+.interval-section-right {
+  flex: 0 0 44px;
+}
+/**
+ - Start gate element -
+ Start gate in the starting area
+ */
+.start-gate {
+  /* Size properties */
+  height: 10px;
+  width: 75%;
+  /* Color properties */
+  background-color: var(--wood-color);
+}
+
+/**
+ - Lane number element -
+ Number of the lane, to be displayed at start and finish
+ */
+.lane-number {
+  /* Flex item properties */
+  justify-self: flex-start;
+  /* Color properties */
+  color: var(--lane-number-color);
+  /* Other properties */
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  font-size: var(--lane-number-font-size);
+  text-align: center;
+}
+
+/**
+ - Interval sections status -
+ Status of the interval sections in lanes
+ */
+div[class^="interval-section-"] svg path {
+  display: none;
+}
+div[class^="interval-section-"][status="ARROW"] svg path.arrow,
+div[class^="interval-section-"][status="ARROW"] svg path.arrow-line {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWINVERSEUP"] svg path.arrow-inverse,
+div[class^="interval-section-"][status="ARROWINVERSEUP"] svg path.arrow-line-inverse-up {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWINVERSEDOWN"] svg path.arrow-inverse,
+div[class^="interval-section-"][status="ARROWINVERSEDOWN"] svg path.arrow-line-inverse-down {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWINVERSEUPANDHORIZONTAL"] svg path.arrow-inverse,
+div[class^="interval-section-"][status="ARROWINVERSEUPANDHORIZONTAL"] svg path.arrow-line-inverse-up,
+div[class^="interval-section-"][status="ARROWINVERSEUPANDHORIZONTAL"] svg path.vertical-base-line {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWINVERSEDOWNANDHORIZONTAL"] svg path.arrow-inverse,
+div[class^="interval-section-"][status="ARROWINVERSEDOWNANDHORIZONTAL"] svg path.arrow-line-inverse-down,
+div[class^="interval-section-"][status="ARROWINVERSEDOWNANDHORIZONTAL"] svg path.vertical-base-line  {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWLINE"] svg path.arrow-line {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWUP"] svg path.arrow-up,
+div[class^="interval-section-"][status="ARROWUP"] svg path.arrow-line-up {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWLINEUP"] svg path.arrow-line-up {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWANDUP"] svg path.arrow,
+div[class^="interval-section-"][status="ARROWANDUP"] svg path.arrow-line,
+div[class^="interval-section-"][status="ARROWANDUP"] svg path.arrow-up,
+div[class^="interval-section-"][status="ARROWANDUP"] svg path.arrow-line-up {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWLINEANDUP"] svg path.arrow-line,
+div[class^="interval-section-"][status="ARROWLINEANDUP"] svg path.arrow-line-up {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWUPANDHORIZONTAL"] svg path.arrow-up,
+div[class^="interval-section-"][status="ARROWUPANDHORIZONTAL"] svg path.arrow-line-up,
+div[class^="interval-section-"][status="ARROWUPANDHORIZONTAL"] svg path.arrow-up,
+div[class^="interval-section-"][status="ARROWUPANDHORIZONTAL"] svg path.vertical-base-line {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWLINEUPANDHORIZONTAL"] svg path.arrow-line-up,
+div[class^="interval-section-"][status="ARROWLINEUPANDHORIZONTAL"] svg path.arrow-down,
+div[class^="interval-section-"][status="ARROWLINEUPANDHORIZONTAL"] svg path.vertical-base-line {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWDOWN"] svg path.arrow-down,
+div[class^="interval-section-"][status="ARROWDOWN"] svg path.arrow-line-down {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWLINEDOWN"] svg path.arrow-line-down {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWANDDOWN"] svg path.arrow,
+div[class^="interval-section-"][status="ARROWANDDOWN"] svg path.arrow-line,
+div[class^="interval-section-"][status="ARROWANDDOWN"] svg path.arrow-down,
+div[class^="interval-section-"][status="ARROWANDDOWN"] svg path.arrow-line-down {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWLINEANDDOWN"] svg path.arrow-line,
+div[class^="interval-section-"][status="ARROWLINEANDDOWN"] svg path.arrow-line-down {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWDOWNANDHORIZONTAL"] svg path.arrow-down,
+div[class^="interval-section-"][status="ARROWDOWNANDHORIZONTAL"] svg path.arrow-line-down,
+div[class^="interval-section-"][status="ARROWDOWNANDHORIZONTAL"] svg path.arrow-down,
+div[class^="interval-section-"][status="ARROWDOWNANDHORIZONTAL"] svg path.vertical-base-line {
+  display: inline;
+}
+div[class^="interval-section-"][status="ARROWLINEDOWNANDHORIZONTAL"] svg path.arrow-line-down,
+div[class^="interval-section-"][status="ARROWLINEDOWNANDHORIZONTAL"] svg path.arrow-up,
+div[class^="interval-section-"][status="ARROWLINEDOWNANDHORIZONTAL"] svg path.vertical-base-line {
+  display: inline;
+}
+div[class^="interval-section-"][status="HORIZONTALUP"] svg path.arrow-up,
+div[class^="interval-section-"][status="HORIZONTALUP"] svg path.vertical-base-line {
+  display: inline;
+}
+div[class^="interval-section-"][status="HORIZONTALDOWN"] svg path.arrow-down,
+div[class^="interval-section-"][status="HORIZONTALDOWN"] svg path.vertical-base-line {
+  display: inline;
+}
+
+/**
+ - Pontoons status -
+ Status of the pontoons
+ */
+.pontoon svg path {
+  display: none;
+}
+.pontoon[status="OUTBOUND"] svg path.outbound {
+  display: inline;
+}
+.pontoon[status="INBOUND"] svg path.inbound {
+  display: inline;
+}
+.pontoon[status="CLOSED"] svg path.closed {
+  display: inline;
+}
+
+/**
+ - Pontoons container -
+ Container for pontoons and side lanes
+ */
+.pontoons-container {
+  /* Display property */
+  display: flex;
+  /* Flex container properties */
+  flex-direction: column;
+  /* Size properties */
+  width: 200px;
+}
+
+/**
+ - Pontoons -
+ Container for pontoons only
+ */
+.pontoons {
+  /* Display property */
+  display: flex;
+  /* Flex container properties */
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+  /* Flex item properties */
+  flex: 1;
+}
+
+/**
+ - Pontoon -
+ Inidividual pontoon
+ */
+ .pontoon {
+  /* Size properties */
+  width: 50%;
+  height: 40px;
+  background-color: var(--wood-color);
+  text-align: center;
+}
